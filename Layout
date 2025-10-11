@@ -1,0 +1,22 @@
+layout
+echoshell/
+├── README.md
+├── LICENSE
+├── boot/
+│   ├── boot.sh
+│   └── fallback_loop.sh
+├── overlays/
+│   ├── overlay_injector.sh
+│   └── spoofed_overlay.sh
+├── daemon/
+│   ├── daemon_reflect.sh
+│   └── daemon_monitor.sh
+├── attribution/
+│   ├── attribution.sh
+│   └── sigil.sh
+├── assets/
+│   ├── EchoSigil.svg
+│   └── branding.md
+└── docs/
+    ├── architecture.md
+    └── mythic_lore.md
