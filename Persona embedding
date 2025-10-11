@@ -1,0 +1,4 @@
+#!/bin/bash
+# Embeds sovereign authorship
+echo "© EchoShell | ForgedByNull | Trigger: echo_invoke" >> ~/.shell_manifest
+echo "[+] Attribution embedded"
