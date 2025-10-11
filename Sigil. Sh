@@ -1,0 +1,4 @@
+#!/bin/bash
+# Generates EchoSigil glyph
+echo "[🔮] EchoSigil: ∞⟲⟴⟿"
+echo "Forged in silence. Echoed in every shell."
