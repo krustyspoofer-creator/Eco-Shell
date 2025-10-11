@@ -1,0 +1,8 @@
+#!/bin/bash
+# Monitors for spoofed overlays
+if grep -q "ForgedByNull" /tmp/overlay_injected; then
+  echo "[!] Intrusion detected: EchoShell spoof"
+  bash ./fallback_loop.sh
+else
+  echo "[✓] System clean"
+fi
