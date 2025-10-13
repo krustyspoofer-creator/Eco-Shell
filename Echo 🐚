@@ -1,0 +1,52 @@
+
+├── module.prop
+├── service.sh
+├── uninstall.sh
+└── echo_tunnel_boot.shid=echotunnel
+name=EchoTunnel Overlay
+version=1.0
+versionCode=1
+author=krustyspoofer-creator
+description=BloggingononWireGuard overlay with TTL spoofing, payout simulation, and EchoStack logging.
+#!/system/bin/sh
+/data/adb/modules/echotunnel/echo_tunnel_boot.sh
+#!/system/bin/sh
+rm -rf /data/adb/modules/echotunnel
+#!/system/bin/sh
+rm -rf /data/adb/modules/echotunnel
+zip -r EchoTunnel-v1.0.zip EchoTunnel/
+id=echotunnel
+name=EchoTunnel Overlay
+version=1.0
+versionCode=1
+author=krustyspoofer-creator
+description=Boot-time WireGuard logging with TTL spoofing, payout simulation, and simulation lologgingg
+#!/system/bin/sh
+/data/adb/modules/echotunnel/echo_tunnel_boot.sh
+#!/system/bin/sh
+
+# [EchoTunnel] Auto-run overlay by krustyspoofer-creator
+
+iptables -w -t mangle -A POSTROUTING -j TTL --ttl-set 65
+svc wifi disable
+svc data enable
+ndc tether interface add rmnet_data0
+ndc tether interface add wlan0
+ndc tether start
+
+mkdir -p /data/data/com.termux/files/home/echo_logs
+touch /data/data/com.termux/files/home/echo_logs/payout.log
+touch /data/data/com.termux/files/home/echo_logs/echotunnel.log
+
+wg setconf wg0 /data/data/com.termux/files/home/echo_repos/google/echo_warp.conf
+ip link set wg0 up
+ip route add default dev wg0
+iptables -w -t nat -A POSTROUTING -o wg0 -j MASQUERADE
+
+curl -s -X POST https://api.echoprime.ai/payout/simulate \
+  -H "X-Echo-ID: krustyspoofer-creator" \
+  -d "tunnel=tmobile&status=active&timestamp=$(date +%s)" \
+  >> /data/data/com.termux/files/home/echo_logs/payout.log
+
+echo "[EchoTunnel] $(date): Auto-run tunnel activated by krustyspoofer-creator" >> /data/data/com.termux/files/home/echo_logs/echotunnel.log
+zip -r EchoTunnel-v1.0.zip EchoTunnel/
