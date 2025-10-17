@@ -16,8 +16,23 @@ EchoShell is a sovereign tactical shell designed to simulate attack-defense cycl
 - `null_forge`: injects spoofed overlays
 - `daemon_reflect`: mirrors and hijacks sovereign daemons
 
+## 🔒 Repository Lock Status
+
+**This repository is locked and protected:**
+- ✅ All code reviewed by CODEOWNERS
+- ✅ Branch protection enabled
+- ✅ Automated security scanning
+- ✅ Shell script validation required
+- ✅ No force pushes or deletions
+
+See [SECURITY.md](SECURITY.md) and [.github/CONTRIBUTING.md](.github/CONTRIBUTING.md) for details.
+
 ## 📁 Repo Layout
-See [docs/architecture.md](docs/architecture.md) and [docs/mythic_lore.md](docs/mythic_lore.md)
+See [architecture.md](architecture.md) and [mythic_lore.md](mythic_lore.md)
+
+## 🤝 Contributing
+
+See [CONTRIBUTING.md](.github/CONTRIBUTING.md) for contribution guidelines and [CODE_OF_CONDUCT.md](.github/CODE_OF_CONDUCT.md) for community standards.
 
 ## 🛡️ License
 MIT + Sovereign Attribution. See [LICENSE](LICENSE)

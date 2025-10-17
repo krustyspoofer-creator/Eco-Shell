@@ -1,0 +1,63 @@
+name: Validate Shell Scripts
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  shellcheck:
+    name: Shellcheck Validation
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Run shellcheck on all shell scripts
+      run: |
+        # Install shellcheck if not available
+        sudo apt-get update && sudo apt-get install -y shellcheck
+        
+        # Run shellcheck on all .sh and .Sh files
+        echo "Validating shell scripts..."
+        EXIT_CODE=0
+        
+        for file in Boot.Sh Fallback_loop.sh Overlay_injector.sh "Demon reflect" "Demon monitor" "Sigil. Sh"; do
+          if [ -f "$file" ]; then
+            echo "Checking $file..."
+            shellcheck "$file" || EXIT_CODE=1
+          fi
+        done
+        
+        exit $EXIT_CODE
+        
+    - name: Verify boot sequence
+      run: |
+        echo "Verifying boot sequence syntax..."
+        bash -n Boot.Sh
+        bash -n Fallback_loop.sh
+        bash -n Overlay_injector.sh
+        bash -n "Demon reflect"
+        bash -n "Demon monitor"
+        bash -n "Sigil. Sh"
+        echo "All scripts have valid syntax!"
+
+  security:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Check for secrets
+      run: |
+        echo "Scanning for exposed secrets..."
+        # Basic check for common secret patterns
+        if grep -r "password\|secret\|api_key\|token" --include="*.sh" --include="*.Sh" . | grep -v "TRIGGER_KEY\|HEAL_KEY\|REFLECT_KEY"; then
+          echo "Warning: Potential secrets found in code"
+          exit 1
+        fi
+        echo "No secrets detected"
