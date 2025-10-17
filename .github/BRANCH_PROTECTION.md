@@ -16,8 +16,8 @@ Enable the following settings in GitHub repository settings under **Settings →
 #### 2. Require Status Checks to Pass Before Merging
 - ✅ **Require branches to be up to date before merging**
 - ✅ **Status checks required**:
-  - `shellcheck` - Validates all shell scripts
-  - `security` - Scans for security issues
+  - `Shellcheck Validation` - Validates all shell scripts
+  - `Security Scan` - Scans for security issues
 
 #### 3. Require Conversation Resolution Before Merging
 - ✅ **Require all conversations to be resolved** before merging
