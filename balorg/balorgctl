@@ -1,0 +1,153 @@
+#!/usr/bin/env bash
+# balorg/balorgctl
+# Balorg AI Control Script (Bash-native mode)
+
+BALORG_HOME="${BALORG_HOME:-$(dirname "$(readlink -f "$0")")}"
+export BALORG_HOME
+
+# Source utilities
+source "$BALORG_HOME/utils/env_helper.sh"
+source "$BALORG_HOME/utils/json_helper.sh"
+
+show_banner() {
+    cat << "EOF"
+╔══════════════════════════════════════════════════════════╗
+║                    BALORG AI                             ║
+║              Bash-Native Framework                       ║
+║        Pure Shell • Modular • Lightweight                ║
+╚══════════════════════════════════════════════════════════╝
+EOF
+}
+
+show_help() {
+    cat << EOF
+
+Usage: balorgctl [command] [options]
+
+Commands:
+  init                    Initialize Balorg environment
+  status                  Show system status
+  plugin [action]         Manage plugins
+    list                  List available plugins
+    run <name> <data>     Run a plugin
+  injection [action]      Manage injections
+    create <name> <code>  Create new injection
+    execute <name>        Execute injection
+    list                  List injections
+    remove <name>         Remove injection
+  serve                   Start plugin service (TCP:50051)
+  api                     Start REST API emulator
+  logs [plugin]           Show logs
+  help                    Show this help
+
+Configuration:
+  BALORG_HOME             Home directory (default: ~/balorg)
+  BALORG_MODE             Operation mode (default: bash)
+  BALORG_API_PORT         API port (default: 8080)
+
+Examples:
+  balorgctl init
+  balorgctl plugin list
+  balorgctl plugin run example_plugin "test data"
+  balorgctl injection create test_inject 'echo "Hello from injection"'
+  balorgctl serve
+
+EOF
+}
+
+cmd_init() {
+    show_banner
+    echo ""
+    set_balorg_env
+    check_dependencies
+    echo ""
+    echo "[Balorg] Creating directory structure..."
+    mkdir -p "$BALORG_HOME"/{core,plugins,injections,api,utils,logs,tests}
+    echo "[Balorg] Initialization complete!"
+}
+
+cmd_status() {
+    show_banner
+    echo ""
+    get_system_info
+    echo ""
+    set_balorg_env
+    echo ""
+    check_dependencies
+}
+
+cmd_plugin() {
+    case "$1" in
+        list)
+            echo "[Balorg] Available plugins:"
+            ls -1 "$BALORG_HOME/plugins"/*.sh 2>/dev/null | xargs -n 1 basename | sed 's/\.sh$//' || echo "  (none)"
+            ;;
+        run)
+            bash "$BALORG_HOME/core/plugin_runner.sh" "$2" "$3"
+            ;;
+        *)
+            echo "Usage: balorgctl plugin {list|run <name> <data>}"
+            exit 1
+            ;;
+    esac
+}
+
+cmd_injection() {
+    bash "$BALORG_HOME/core/injection_manager.sh" "$@"
+}
+
+cmd_serve() {
+    echo "[Balorg] Starting plugin service..."
+    bash "$BALORG_HOME/core/plugin_runner.sh"
+}
+
+cmd_api() {
+    echo "[Balorg] Starting REST API emulator..."
+    bash "$BALORG_HOME/api/rest_emulator.sh"
+}
+
+cmd_logs() {
+    local plugin="$1"
+    if [[ -n "$plugin" ]]; then
+        tail -f "$BALORG_HOME/logs/${plugin}.log"
+    else
+        echo "[Balorg] Available logs:"
+        ls -1 "$BALORG_HOME/logs"/*.log 2>/dev/null || echo "  (none)"
+    fi
+}
+
+# Main command dispatcher
+case "$1" in
+    init)
+        cmd_init
+        ;;
+    status)
+        cmd_status
+        ;;
+    plugin)
+        shift
+        cmd_plugin "$@"
+        ;;
+    injection)
+        shift
+        cmd_injection "$@"
+        ;;
+    serve)
+        cmd_serve
+        ;;
+    api)
+        cmd_api
+        ;;
+    logs)
+        cmd_logs "$2"
+        ;;
+    help|--help|-h|"")
+        show_banner
+        show_help
+        ;;
+    *)
+        echo "Unknown command: $1"
+        echo "Run 'balorgctl help' for usage information"
+        exit 1
+        ;;
+esac
