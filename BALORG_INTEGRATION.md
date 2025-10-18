@@ -143,8 +143,9 @@ kill $SERVICE_PID
 
 ```bash
 # From Eco-Shell root directory
-source balorg/utils/env_helper.sh
-set_balorg_env
+
+# Initialize Balorg
+./balorg/balorgctl init
 
 # Create EcoShell integration
 ./balorg/balorgctl injection create eco_boot '
