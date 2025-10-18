@@ -16,7 +16,10 @@ def process_plugin_request(request):
     Returns:
         str: Result of plugin processing
     """
-    logging.info(f"Processing plugin request: {request.plugin_name}")
+    # Log only non-sensitive metadata
+    data_size = len(request.plugin_data) if request.plugin_data else 0
+    param_count = len(request.parameters) if request.parameters else 0
+    logging.info(f"Processing plugin: {request.plugin_name} (data_size: {data_size} bytes, params: {param_count})")
     
     # Simple plugin processing logic
     if not request.plugin_name:
@@ -25,10 +28,9 @@ def process_plugin_request(request):
     result = f"Plugin '{request.plugin_name}' executed successfully"
     
     if request.plugin_data:
-        result += f" with data: {request.plugin_data[:50]}"  # Truncate for logging
+        result += f" with {len(request.plugin_data)} bytes of data"
     
     if request.parameters:
-        param_count = len(request.parameters)
         result += f" ({param_count} parameter(s))"
     
     return result

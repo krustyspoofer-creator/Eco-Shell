@@ -35,6 +35,7 @@ class TestPluginService(unittest.TestCase):
         
         self.assertIn("param_plugin", result)
         self.assertIn("2 parameter(s)", result)
+        self.assertIn("bytes of data", result)
     
     def test_process_plugin_request_empty_name(self):
         """Test plugin request with empty name"""
