@@ -28,7 +28,8 @@ Based on the AI R&D and workflow automation research patterns mentioned:
 
 ### 3. Reasoning Engine (`reasoning_engine.py`)
 Implements the exact query from the problem statement:
-> "Which AI labs specialize in workflow automation research that could enhance Balorg's capabilities?"
+
+**Query:** "Which AI labs specialize in workflow automation research that could enhance Balorg's capabilities?"
 
 **Features:**
 - Reasoning traces showing step-by-step logic

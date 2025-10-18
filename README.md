@@ -22,7 +22,7 @@ See [docs/architecture.md](docs/architecture.md) and [docs/mythic_lore.md](docs/
 
 ### Echo Knowledge Graph 🌐
 The `echo_knowledge/` directory contains a powerful AI ecosystem intelligence system:
-- **Knowledge Graph:** Tracks 8 organizations, 8 tools, 5 domains, 3 research papers, 19 relationships
+- **Knowledge Graph:** Tracks organizations, tools, domains, and research papers with their relationships
 - **Reasoning Engine:** Intelligent queries with reasoning traces and confidence scores
 - **Data Ingestion:** Automated pipeline for search patterns, web scrapers, and APIs
 - **CLI Tool:** Easy interaction with `./echo_kg_cli.py` and `./quickstart.sh`
