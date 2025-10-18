@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package balorg;
+
+service PluginService {
+  rpc ExecutePlugin(PluginRequest) returns (PluginResponse) {}
+}
+
+message PluginRequest {
+  string stringA = 1;
+  string stringB = 2;
+  string stringC = 3;
+}
+
+message PluginResponse {
+  string result = 1;
+  string stringD = 2;
+  string stringE = 3;
+  string stringF = 4;
+}
