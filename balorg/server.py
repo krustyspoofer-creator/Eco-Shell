@@ -3,7 +3,6 @@ gRPC Plugin Service Server Implementation
 """
 import grpc
 from concurrent import futures
-import time
 from balorg import plugin_service_pb2
 from balorg import plugin_service_pb2_grpc
 
@@ -48,8 +47,7 @@ def serve(port=50051):
     print(f'Plugin Service server started on port {port}')
     
     try:
-        while True:
-            time.sleep(86400)  # Keep server running
+        server.wait_for_termination()
     except KeyboardInterrupt:
         server.stop(0)
         print('Server stopped')
