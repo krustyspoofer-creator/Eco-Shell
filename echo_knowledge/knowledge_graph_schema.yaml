@@ -1,0 +1,117 @@
+# Echo Knowledge Graph Schema
+# Defines entity types and relationships for AI ecosystem tracking
+
+entity_types:
+  Organization:
+    properties:
+      - name: string (required)
+      - type: string [research_lab, startup, enterprise, university]
+      - focus_areas: list[string]
+      - location: string
+      - founded: date
+      - website: string
+      - funding_status: string [seed, series_a, series_b, public, bootstrapped]
+    
+  Tool:
+    properties:
+      - name: string (required)
+      - category: string [automation, content_creation, nlp, workflow, research]
+      - description: string
+      - api_available: boolean
+      - open_source: boolean
+      - license: string
+      - capabilities: list[string]
+      - integration_endpoints: list[string]
+    
+  Domain:
+    properties:
+      - name: string (required)
+      - description: string
+      - parent_domain: string (optional)
+      - key_technologies: list[string]
+      - maturity: string [emerging, growing, mature]
+    
+  ResearchPaper:
+    properties:
+      - title: string (required)
+      - authors: list[string]
+      - published_date: date
+      - url: string
+      - topics: list[string]
+      - citations: integer
+      - relevance_score: float
+
+relationship_types:
+  USES:
+    from: Organization
+    to: Tool
+    properties:
+      - since: date
+      - integration_level: string [basic, advanced, custom]
+      - verified: boolean
+  
+  SPECIALIZES_IN:
+    from: Organization
+    to: Domain
+    properties:
+      - expertise_level: string [beginner, intermediate, expert, leader]
+      - years_active: integer
+  
+  PUBLISHED:
+    from: Organization
+    to: ResearchPaper
+    properties:
+      - contribution_type: string [primary, collaboration]
+  
+  FUNDS:
+    from: Organization
+    to: Organization
+    properties:
+      - amount: float (optional)
+      - round: string
+      - date: date
+  
+  ENABLES:
+    from: Tool
+    to: Domain
+    properties:
+      - effectiveness: float [0.0-1.0]
+  
+  COLLABORATES_WITH:
+    from: Organization
+    to: Organization
+    properties:
+      - project_name: string
+      - start_date: date
+      - active: boolean
+
+reasoning_rules:
+  - name: "Find AI Collaboration Opportunities"
+    description: "Identify labs/orgs that could enhance Balorg's capabilities"
+    query_pattern: |
+      MATCH (org:Organization)-[:SPECIALIZES_IN]->(domain:Domain)
+      WHERE domain.name IN $target_domains
+      AND org.type IN ['research_lab', 'startup']
+      OPTIONAL MATCH (org)-[:USES]->(tool:Tool)
+      WHERE tool.api_available = true
+      OPTIONAL MATCH (org)-[:PUBLISHED]->(paper:ResearchPaper)
+      WHERE paper.published_date > date('2023-01-01')
+      RETURN org, collect(DISTINCT tool) as tools, count(paper) as recent_papers
+      ORDER BY recent_papers DESC
+  
+  - name: "Workflow Automation Stack Discovery"
+    description: "Find integrated tool stacks for workflow automation"
+    query_pattern: |
+      MATCH (org:Organization)-[:USES]->(tool:Tool)-[:ENABLES]->(domain:Domain)
+      WHERE domain.name = 'workflow_automation'
+      RETURN org.name, collect(tool.name) as automation_stack
+      
+  - name: "Research Trend Analysis"
+    description: "Track emerging research trends and key players"
+    query_pattern: |
+      MATCH (org:Organization)-[:PUBLISHED]->(paper:ResearchPaper)
+      WHERE paper.published_date > date('2024-01-01')
+      WITH paper.topics as topics, count(paper) as paper_count
+      UNWIND topics as topic
+      RETURN topic, sum(paper_count) as frequency
+      ORDER BY frequency DESC

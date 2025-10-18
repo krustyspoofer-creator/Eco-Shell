@@ -10,6 +10,7 @@ EchoShell is a sovereign tactical shell designed to simulate attack-defense cycl
 - Spoofed overlay injection and daemon hijack
 - Attribution embedding and sigil logic
 - Mythic lore and sovereign triggers
+- **Echo Knowledge Graph**: AI ecosystem intelligence with reasoning capabilities
 
 ## 🔧 Sovereign Triggers
 - `echo_invoke`: boots EchoShell
@@ -18,6 +19,15 @@ EchoShell is a sovereign tactical shell designed to simulate attack-defense cycl
 
 ## 📁 Repo Layout
 See [docs/architecture.md](docs/architecture.md) and [docs/mythic_lore.md](docs/mythic_lore.md)
+
+### Echo Knowledge Graph
+The `echo_knowledge/` directory contains the AI ecosystem intelligence system with:
+- Knowledge graph schema and sample data
+- Reasoning engine for intelligent queries
+- Data ingestion pipeline for continuous updates
+- CLI tool for interaction
+
+See [echo_knowledge/README.md](echo_knowledge/README.md) for details.
 
 ## 🛡️ License
 MIT + Sovereign Attribution. See [LICENSE](LICENSE)
