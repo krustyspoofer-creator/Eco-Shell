@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package balorg;
+
+// Service definition for the Plugin Service
+service PluginService {
+    rpc ExecutePlugin (PluginRequest) returns (PluginResponse) {}
+}
+
+// Request message for executing a plugin
+message PluginRequest {
+    string plugin_name = 1;
+    string plugin_data = 2;
+}
+
+// Response message after plugin execution
+message PluginResponse {
+    string result = 1;
+}
