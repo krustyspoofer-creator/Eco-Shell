@@ -105,6 +105,30 @@ entities:
       - relation: "integrates_with"
         target: project_balorg_ai
 
+  - id: model_gpt_series
+    name: "GPT Series"
+    type: "Language Model Family"
+    domain: ["Natural Language Processing", "Generative AI"]
+    attributes:
+      confidence: 0.98
+      provenance: "openai_docs"
+    relations:
+      - relation: "developed_by"
+        target: org_openai
+
+  - id: framework_tensorflow
+    name: "TensorFlow"
+    type: "Framework"
+    domain: ["Machine Learning", "Deep Learning"]
+    attributes:
+      language: "Python"
+      version: "2.x+"
+      confidence: 0.98
+      provenance: "framework_docs"
+    relations:
+      - relation: "used_by"
+        target: project_echo
+
 concepts:
   - id: concept_hybrid_architecture
     name: "Hybrid AI Architecture"
