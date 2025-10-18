@@ -32,7 +32,11 @@ update_proxies() {
     mkdir -p "$BALORG_REGISTRY_DIR"
     
     # Download fresh list, overwriting the old file
-    curl -s "https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=5000&country=all" > "$PROXY_FILE"
+    if ! curl -s "https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=5000&country=all" > "$PROXY_FILE"; then
+        balorg_log "FAILURE: Failed to download proxy list from API. Check network connection."
+        return 1
+    fi
+    
     local count=$(wc -l < "$PROXY_FILE" 2>/dev/null || echo 0)
     
     if [[ "$count" -gt 0 ]]; then
@@ -60,8 +64,8 @@ proxy_rotate() {
     while [[ "$attempt" -lt "$max_attempts" ]]; do
         attempt=$((attempt + 1))
         
-        # Randomly select a proxy
-        proxy=$(shuf -n1 "$PROXY_FILE")
+        # Randomly select a proxy (using sort -R for better portability)
+        proxy=$(sort -R "$PROXY_FILE" | head -n1)
         
         balorg_log "Attempt $attempt: Testing $proxy..."
 
@@ -84,9 +88,10 @@ proxy_rotate() {
 # Function: Display the current proxy status
 proxy_status() {
     local current_proxy="${http_proxy:-[NONE SET]}"
+    local current_https_proxy="${https_proxy:-[NONE SET]}"
     echo "--- Balorg Proxy Status ---"
     echo "Current http_proxy:  $current_proxy"
-    echo "Current https_proxy: $https_proxy"
+    echo "Current https_proxy: $current_https_proxy"
     echo "Proxy list file:     $PROXY_FILE"
     echo "Log file:            $LOG_FILE"
 }
@@ -95,7 +100,12 @@ proxy_status() {
 proxy_test() {
     if [[ -z "$http_proxy" ]]; then
         echo "[Balorg] Current proxy is NOT set. Direct connection test:"
-        curl -s https://ipinfo.io/ip
+        if curl -s https://ipinfo.io/ip; then
+            echo "Direct connection successful."
+        else
+            echo "ERROR: Direct connection failed."
+            return 1
+        fi
         return 0
     fi
     
