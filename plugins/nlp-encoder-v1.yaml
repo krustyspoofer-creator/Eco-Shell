@@ -1,0 +1,44 @@
+plugin_id: "nlp-encoder-v1"
+type: "encoder" # encoder | reasoner | planner | datastore | runtime
+name: "NLU Encoder (v1)"
+version: "2025.10.18"
+description: "Text encoder producing embeddings and token metadata for Balorg."
+entrypoint: "grpc://nlp-encoder.internal:50051"
+capabilities:
+  - encode_text
+  - stream_encode
+outputs:
+  - embedding: {dim: 1024, dtype: "float32", layout: "row-major"}
+  - tokens: {format: "bpe", vocab: "sentencepiece", tokenizer_version: "v0.4"}
+security:
+  require_signature: true
+  allowed_environments:
+    - dev
+    - test
+    - staging
+    - prod
+  forbidden_syscalls:
+    - "fork"
+    - "exec"
+    - "ptrace"
+  network_egress: "deny"    # options: allow | deny | restricted
+  secrets_access: "vault"   # none | vault | scoped
+dependencies:
+  - name: "sentencepiece"
+    version: "0.1.95"
+    checksum: "sha256:..."
+runtime:
+  runtime_type: "container" # wasm | container | microvm
+  image: "registry.example.com/balorg/nlp-encoder:v2025.10.18"
+  max_cpu_cores: 1
+  max_memory_mb: 512
+  max_runtime_seconds: 30
+manifest_signer: "team-nlu@balorg.example"
+provenance:
+  source_repo: "https://github.com/yourorg/nlp-encoder"
+  commit_sha: "abcdef1234567890"
+  build_artifact: "s3://artifacts/encoders/nlp-encoder-v1.tar.gz"
+health_check:
+  path: "/health"
+  interval_seconds: 30
+policy_profile: "default-strict"
