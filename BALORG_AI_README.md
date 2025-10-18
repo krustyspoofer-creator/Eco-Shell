@@ -67,7 +67,7 @@ Balorg AI is a comprehensive, production-ready injection framework and hybrid su
    ▼        ▼        ▼        ▼        ▼        ▼        ▼
 ┌──────┐ ┌────┐ ┌────┐ ┌─────┐ ┌──────┐ ┌─────┐ ┌──────┐
 │  DI  │ │Code│ │Data│ │Model│ │Secret│ │ ... │ │Plugin│
-│Plugin│ │ "" │ │ "" │ │ ""  │ │ ""   │ │     │ │  N   │
+│Plugin│ │Plgn│ │Plgn│ │Plgn │ │Plgn  │ │     │ │  N   │
 └──┬───┘ └─┬──┘ └─┬──┘ └──┬──┘ └───┬──┘ └──┬──┘ └───┬──┘
    │       │      │       │        │       │        │
    └───────┴──────┴───────┴────────┴───────┴────────┘
