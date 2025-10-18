@@ -1,0 +1,2 @@
+# Echo Knowledge Graph Dependencies
+PyYAML>=6.0

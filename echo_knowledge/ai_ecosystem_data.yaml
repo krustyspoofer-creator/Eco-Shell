@@ -1,0 +1,428 @@
+# Echo Knowledge Graph - Sample AI Ecosystem Data
+# Based on AI R&D, workflow automation, and content creation research
+
+entities:
+  organizations:
+    - id: org_001
+      name: "OpenAI"
+      type: research_lab
+      focus_areas:
+        - "Large Language Models"
+        - "AI Safety"
+        - "Workflow Automation"
+      location: "San Francisco, CA"
+      founded: "2015-12-11"
+      website: "https://openai.com"
+      funding_status: public
+      
+    - id: org_002
+      name: "Anthropic"
+      type: research_lab
+      focus_areas:
+        - "Constitutional AI"
+        - "AI Safety"
+        - "NLP Research"
+      location: "San Francisco, CA"
+      founded: "2021-01-01"
+      website: "https://anthropic.com"
+      funding_status: series_c
+      
+    - id: org_003
+      name: "Jasper AI"
+      type: startup
+      focus_areas:
+        - "AI Content Creation"
+        - "Marketing Automation"
+        - "Workflow Optimization"
+      location: "Austin, TX"
+      founded: "2021-01-01"
+      website: "https://jasper.ai"
+      funding_status: series_a
+      
+    - id: org_004
+      name: "Writesonic"
+      type: startup
+      focus_areas:
+        - "AI Writing"
+        - "Content Generation"
+        - "SEO Optimization"
+      location: "San Francisco, CA"
+      founded: "2020-06-01"
+      website: "https://writesonic.com"
+      funding_status: seed
+      
+    - id: org_005
+      name: "Meta AI Research"
+      type: research_lab
+      focus_areas:
+        - "Computer Vision"
+        - "NLP"
+        - "Privacy-Preserving AI"
+        - "Collaborative AI"
+      location: "Menlo Park, CA"
+      founded: "2013-09-01"
+      website: "https://ai.facebook.com"
+      funding_status: public
+      
+    - id: org_006
+      name: "Hugging Face"
+      type: startup
+      focus_areas:
+        - "Open Source AI"
+        - "Model Hub"
+        - "NLP Tools"
+        - "Collaboration Platform"
+      location: "New York, NY"
+      founded: "2016-01-01"
+      website: "https://huggingface.co"
+      funding_status: series_c
+      
+    - id: org_007
+      name: "Zapier"
+      type: startup
+      focus_areas:
+        - "Workflow Automation"
+        - "API Integration"
+        - "No-Code Automation"
+      location: "San Francisco, CA"
+      founded: "2011-06-01"
+      website: "https://zapier.com"
+      funding_status: bootstrapped
+      
+    - id: org_008
+      name: "Make (Integromat)"
+      type: startup
+      focus_areas:
+        - "Visual Automation"
+        - "Workflow Builder"
+        - "Integration Platform"
+      location: "Prague, Czech Republic"
+      founded: "2012-01-01"
+      website: "https://make.com"
+      funding_status: series_b
+
+  tools:
+    - id: tool_001
+      name: "GPT-4"
+      category: nlp
+      description: "Advanced language model for text generation, analysis, and reasoning"
+      api_available: true
+      open_source: false
+      license: "Proprietary"
+      capabilities:
+        - "Text Generation"
+        - "Code Generation"
+        - "Reasoning"
+        - "Multi-modal Understanding"
+      integration_endpoints:
+        - "https://api.openai.com/v1/chat/completions"
+        
+    - id: tool_002
+      name: "Claude"
+      category: nlp
+      description: "Constitutional AI assistant with strong reasoning capabilities"
+      api_available: true
+      open_source: false
+      license: "Proprietary"
+      capabilities:
+        - "Long Context Processing"
+        - "Code Analysis"
+        - "Research Synthesis"
+        - "Safe AI Interaction"
+      integration_endpoints:
+        - "https://api.anthropic.com/v1/messages"
+        
+    - id: tool_003
+      name: "Jasper API"
+      category: content_creation
+      description: "AI content creation platform for marketing and blogging"
+      api_available: true
+      open_source: false
+      license: "Proprietary"
+      capabilities:
+        - "Blog Writing"
+        - "Marketing Copy"
+        - "SEO Content"
+        - "Brand Voice Customization"
+      integration_endpoints:
+        - "https://api.jasper.ai/v1/generate"
+        
+    - id: tool_004
+      name: "Writesonic API"
+      category: content_creation
+      description: "AI writing tool for content creators and marketers"
+      api_available: true
+      open_source: false
+      license: "Proprietary"
+      capabilities:
+        - "Article Writing"
+        - "Ad Copy"
+        - "Landing Pages"
+        - "Paraphrasing"
+      integration_endpoints:
+        - "https://api.writesonic.com/v2/business"
+        
+    - id: tool_005
+      name: "Transformers Library"
+      category: nlp
+      description: "Open-source library for state-of-the-art NLP models"
+      api_available: true
+      open_source: true
+      license: "Apache 2.0"
+      capabilities:
+        - "Model Training"
+        - "Fine-tuning"
+        - "Inference"
+        - "Model Sharing"
+      integration_endpoints:
+        - "https://huggingface.co/api"
+        
+    - id: tool_006
+      name: "LLaMA"
+      category: nlp
+      description: "Meta's open foundation language models"
+      api_available: false
+      open_source: true
+      license: "Custom Research License"
+      capabilities:
+        - "Language Understanding"
+        - "Reasoning"
+        - "Code Generation"
+      integration_endpoints: []
+      
+    - id: tool_007
+      name: "Zapier Platform"
+      category: automation
+      description: "No-code automation platform connecting 5000+ apps"
+      api_available: true
+      open_source: false
+      license: "Proprietary"
+      capabilities:
+        - "Multi-step Workflows"
+        - "Trigger-Action Automation"
+        - "Data Transfer"
+        - "Custom Integrations"
+      integration_endpoints:
+        - "https://api.zapier.com/v1/"
+        
+    - id: tool_008
+      name: "Make Scenarios"
+      category: automation
+      description: "Visual workflow automation with advanced logic"
+      api_available: true
+      open_source: false
+      license: "Proprietary"
+      capabilities:
+        - "Visual Workflow Design"
+        - "Conditional Logic"
+        - "Data Transformation"
+        - "Error Handling"
+      integration_endpoints:
+        - "https://api.make.com/v2/"
+
+  domains:
+    - id: domain_001
+      name: "Workflow Automation"
+      description: "Automated processes connecting multiple tools and services"
+      parent_domain: null
+      key_technologies:
+        - "API Integration"
+        - "Event-Driven Architecture"
+        - "Process Orchestration"
+      maturity: mature
+      
+    - id: domain_002
+      name: "AI Content Creation"
+      description: "Using AI to generate written content, images, and multimedia"
+      parent_domain: null
+      key_technologies:
+        - "Large Language Models"
+        - "Generative AI"
+        - "Natural Language Processing"
+      maturity: growing
+      
+    - id: domain_003
+      name: "AI Privacy & Safety"
+      description: "Ensuring AI systems protect user privacy and operate safely"
+      parent_domain: null
+      key_technologies:
+        - "Differential Privacy"
+        - "Federated Learning"
+        - "Constitutional AI"
+      maturity: emerging
+      
+    - id: domain_004
+      name: "NLP Research"
+      description: "Research in natural language processing and understanding"
+      parent_domain: null
+      key_technologies:
+        - "Transformer Models"
+        - "Attention Mechanisms"
+        - "Transfer Learning"
+      maturity: mature
+      
+    - id: domain_005
+      name: "AI Collaboration Tools"
+      description: "Platforms enabling teams to collaborate on AI development"
+      parent_domain: null
+      key_technologies:
+        - "Model Sharing"
+        - "Version Control"
+        - "Collaborative Training"
+      maturity: growing
+
+  research_papers:
+    - id: paper_001
+      title: "Constitutional AI: Harmlessness from AI Feedback"
+      authors:
+        - "Bai et al."
+      published_date: "2022-12-15"
+      url: "https://arxiv.org/abs/2212.08073"
+      topics:
+        - "AI Safety"
+        - "Reinforcement Learning"
+        - "Constitutional AI"
+      citations: 450
+      relevance_score: 0.95
+      
+    - id: paper_002
+      title: "LLaMA: Open and Efficient Foundation Language Models"
+      authors:
+        - "Touvron et al."
+      published_date: "2023-02-27"
+      url: "https://arxiv.org/abs/2302.13971"
+      topics:
+        - "Language Models"
+        - "Open Source AI"
+        - "Model Efficiency"
+      citations: 1200
+      relevance_score: 0.98
+      
+    - id: paper_003
+      title: "GPT-4 Technical Report"
+      authors:
+        - "OpenAI"
+      published_date: "2023-03-15"
+      url: "https://arxiv.org/abs/2303.08774"
+      topics:
+        - "Large Language Models"
+        - "Multi-modal AI"
+        - "Reasoning"
+      citations: 2500
+      relevance_score: 0.99
+
+relationships:
+  uses:
+    - from: org_003  # Jasper AI
+      to: tool_001    # GPT-4
+      properties:
+        since: "2022-03-01"
+        integration_level: advanced
+        verified: true
+        
+    - from: org_004  # Writesonic
+      to: tool_001    # GPT-4
+      properties:
+        since: "2022-06-01"
+        integration_level: advanced
+        verified: true
+        
+    - from: org_006  # Hugging Face
+      to: tool_005    # Transformers
+      properties:
+        since: "2018-01-01"
+        integration_level: custom
+        verified: true
+        
+  specializes_in:
+    - from: org_001  # OpenAI
+      to: domain_002  # AI Content Creation
+      properties:
+        expertise_level: leader
+        years_active: 5
+        
+    - from: org_001  # OpenAI
+      to: domain_004  # NLP Research
+      properties:
+        expertise_level: leader
+        years_active: 8
+        
+    - from: org_002  # Anthropic
+      to: domain_003  # AI Privacy & Safety
+      properties:
+        expertise_level: leader
+        years_active: 3
+        
+    - from: org_005  # Meta AI
+      to: domain_003  # AI Privacy & Safety
+      properties:
+        expertise_level: expert
+        years_active: 6
+        
+    - from: org_005  # Meta AI
+      to: domain_005  # AI Collaboration Tools
+      properties:
+        expertise_level: expert
+        years_active: 4
+        
+    - from: org_007  # Zapier
+      to: domain_001  # Workflow Automation
+      properties:
+        expertise_level: leader
+        years_active: 12
+        
+    - from: org_008  # Make
+      to: domain_001  # Workflow Automation
+      properties:
+        expertise_level: expert
+        years_active: 11
+        
+  published:
+    - from: org_002  # Anthropic
+      to: paper_001   # Constitutional AI
+      properties:
+        contribution_type: primary
+        
+    - from: org_005  # Meta AI
+      to: paper_002   # LLaMA
+      properties:
+        contribution_type: primary
+        
+    - from: org_001  # OpenAI
+      to: paper_003   # GPT-4
+      properties:
+        contribution_type: primary
+        
+  enables:
+    - from: tool_001  # GPT-4
+      to: domain_002  # AI Content Creation
+      properties:
+        effectiveness: 0.95
+        
+    - from: tool_002  # Claude
+      to: domain_002  # AI Content Creation
+      properties:
+        effectiveness: 0.90
+        
+    - from: tool_005  # Transformers
+      to: domain_004  # NLP Research
+      properties:
+        effectiveness: 0.98
+        
+    - from: tool_007  # Zapier
+      to: domain_001  # Workflow Automation
+      properties:
+        effectiveness: 0.92
+        
+    - from: tool_008  # Make
+      to: domain_001  # Workflow Automation
+      properties:
+        effectiveness: 0.90
+        
+  collaborates_with:
+    - from: org_006  # Hugging Face
+      to: org_005    # Meta AI
+      properties:
+        project_name: "Open LLM Distribution"
+        start_date: "2023-07-01"
+        active: true

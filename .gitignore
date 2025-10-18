@@ -29,3 +29,11 @@ game28.dta
 
 # Log files
 warnings.log
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
