@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+
+# balorgctl - Balorg Proxy Module Control Interface
+# Command-line tool for managing proxy operations
+
+# Get the directory where this script is located
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Source the balorg proxy module
+source "$SCRIPT_DIR/balorg/balorg_proxy.sh"
+
+# Display usage information
+show_usage() {
+    cat << EOF
+balorgctl - Balorg Proxy Module Control Interface
+
+Usage: balorgctl proxy {update|rotate|status|test}
+
+Commands:
+  proxy update    Update the proxy list from remote source
+  proxy rotate    Rotate to a new, validated proxy
+  proxy status    Display current proxy status
+  proxy test      Test the currently exported proxy
+
+Environment Variables:
+  BALORG_HOME     Base directory for Balorg data (default: \$HOME/balorg)
+
+Examples:
+  balorgctl proxy update    # Update proxy list
+  balorgctl proxy rotate    # Find and set a working proxy
+  balorgctl proxy status    # Show current proxy configuration
+  balorgctl proxy test      # Test current proxy connection
+
+EOF
+}
+
+# Main command dispatcher
+if [[ "$1" == "proxy" ]]; then
+    case "$2" in
+        update)
+            update_proxies
+            ;;
+        rotate)
+            proxy_rotate
+            ;;
+        status)
+            proxy_status
+            ;;
+        test)
+            proxy_test
+            ;;
+        *)
+            echo "Error: Invalid proxy command '$2'"
+            echo ""
+            show_usage
+            exit 1
+            ;;
+    esac
+else
+    if [[ -z "$1" ]]; then
+        show_usage
+    else
+        echo "Error: Unknown command '$1'"
+        echo ""
+        show_usage
+        exit 1
+    fi
+fi

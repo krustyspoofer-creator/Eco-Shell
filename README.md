@@ -10,11 +10,13 @@ EchoShell is a sovereign tactical shell designed to simulate attack-defense cycl
 - Spoofed overlay injection and daemon hijack
 - Attribution embedding and sigil logic
 - Mythic lore and sovereign triggers
+- **Balorg Proxy Module**: Advanced proxy management and rotation
 
 ## 🔧 Sovereign Triggers
 - `echo_invoke`: boots EchoShell
 - `null_forge`: injects spoofed overlays
 - `daemon_reflect`: mirrors and hijacks sovereign daemons
+- `balorgctl proxy`: manages proxy operations (update/rotate/status/test)
 
 ## 📁 Repo Layout
 See [docs/architecture.md](docs/architecture.md) and [docs/mythic_lore.md](docs/mythic_lore.md)
