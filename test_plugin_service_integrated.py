@@ -5,6 +5,7 @@ import subprocess
 import time
 import sys
 import os
+from pathlib import Path
 
 from balorg import plugin_service_pb2
 from balorg import plugin_service_pb2_grpc
@@ -13,9 +14,10 @@ from balorg import plugin_service_pb2_grpc
 @pytest.fixture(scope="module")
 def grpc_server():
     """Start the gRPC server for testing."""
-    # Set PYTHONPATH
+    # Set PYTHONPATH to project root (parent directory of this file)
     env = os.environ.copy()
-    env['PYTHONPATH'] = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    project_root = Path(__file__).parent.resolve()
+    env['PYTHONPATH'] = str(project_root)
     
     # Start the server
     server_process = subprocess.Popen(
@@ -25,8 +27,31 @@ def grpc_server():
         stderr=subprocess.PIPE
     )
     
-    # Wait for server to start
-    time.sleep(2)
+    # Wait for server to start with retry mechanism
+    max_retries = 10
+    retry_delay = 0.5
+    channel = None
+    
+    for attempt in range(max_retries):
+        try:
+            channel = grpc.insecure_channel('localhost:50051')
+            # Try to connect to verify server is ready
+            stub = plugin_service_pb2_grpc.PluginServiceStub(channel)
+            request = plugin_service_pb2.PluginRequest(
+                plugin_name='health_check',
+                plugin_data=''
+            )
+            stub.ExecutePlugin(request, timeout=1)
+            channel.close()
+            break
+        except grpc.RpcError:
+            if attempt < max_retries - 1:
+                time.sleep(retry_delay)
+            else:
+                if channel:
+                    channel.close()
+                server_process.terminate()
+                raise RuntimeError("Server failed to start within expected time")
     
     yield server_process
     
@@ -38,11 +63,17 @@ def grpc_server():
         server_process.kill()
 
 
-def test_execute_plugin_with_auto_server(grpc_server):
-    """Test plugin execution with auto-started server."""
-    # Create a gRPC channel
+@pytest.fixture
+def grpc_channel(grpc_server):
+    """Create a gRPC channel for testing."""
     channel = grpc.insecure_channel('localhost:50051')
-    stub = plugin_service_pb2_grpc.PluginServiceStub(channel)
+    yield channel
+    channel.close()
+
+
+def test_execute_plugin_with_auto_server(grpc_channel):
+    """Test plugin execution with auto-started server."""
+    stub = plugin_service_pb2_grpc.PluginServiceStub(grpc_channel)
 
     # Create a plugin request
     request = plugin_service_pb2.PluginRequest(
@@ -57,14 +88,11 @@ def test_execute_plugin_with_auto_server(grpc_server):
         assert response.result == 'expected_result'
     except grpc.RpcError as e:
         pytest.fail(f"gRPC error: {e}")
-    finally:
-        channel.close()
 
 
-def test_execute_plugin_unknown(grpc_server):
+def test_execute_plugin_unknown(grpc_channel):
     """Test plugin execution with unknown plugin."""
-    channel = grpc.insecure_channel('localhost:50051')
-    stub = plugin_service_pb2_grpc.PluginServiceStub(channel)
+    stub = plugin_service_pb2_grpc.PluginServiceStub(grpc_channel)
 
     request = plugin_service_pb2.PluginRequest(
         plugin_name='unknown_plugin',
@@ -77,14 +105,11 @@ def test_execute_plugin_unknown(grpc_server):
         assert 'Unknown plugin' in response.result
     except grpc.RpcError as e:
         pytest.fail(f"gRPC error: {e}")
-    finally:
-        channel.close()
 
 
-def test_execute_plugin_different_data(grpc_server):
+def test_execute_plugin_different_data(grpc_channel):
     """Test plugin execution with different data."""
-    channel = grpc.insecure_channel('localhost:50051')
-    stub = plugin_service_pb2_grpc.PluginServiceStub(channel)
+    stub = plugin_service_pb2_grpc.PluginServiceStub(grpc_channel)
 
     request = plugin_service_pb2.PluginRequest(
         plugin_name='example_plugin',
@@ -97,5 +122,3 @@ def test_execute_plugin_different_data(grpc_server):
         assert 'Processed:' in response.result
     except grpc.RpcError as e:
         pytest.fail(f"gRPC error: {e}")
-    finally:
-        channel.close()
