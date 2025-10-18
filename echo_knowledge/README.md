@@ -1,5 +1,25 @@
 # Echo Knowledge Graph System
 
+## Quick Start
+
+```bash
+cd echo_knowledge
+./quickstart.sh
+```
+
+Or run individual components:
+
+```bash
+# View statistics
+./echo_kg_cli.py stats
+
+# Query for collaboration opportunities
+./echo_kg_cli.py query collaboration --domains "Workflow Automation,AI Privacy & Safety"
+
+# Run complete demonstration
+python3 demo_use_case.py
+```
+
 ## Overview
 
 The Echo Knowledge Graph system provides advanced reasoning capabilities over the AI ecosystem, tracking organizations, tools, domains, and research papers. It enables intelligent queries about collaboration opportunities, workflow automation stacks, and emerging research trends.
