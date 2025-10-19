@@ -30,3 +30,7 @@ game28.dta
 # Log files
 warnings.log
 overlays/overlay_guard.log
+
+# Python cache
+__pycache__/
+*.pyc
