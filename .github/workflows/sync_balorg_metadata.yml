@@ -1,0 +1,38 @@
+name: Sync Balorg metadata
+
+on:
+  schedule:
+    - cron: '0 2 * * *'    # daily at 02:00 UTC
+  push:
+    paths:
+      - 'balorg_repositories_metadata.json'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: python -m pip install requests
+      - name: Run metadata sync
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python3 scripts/check_balorg_metadata.py
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ -n "$(git status --porcelain)" ]; then
+            git add balorg_repositories_metadata.json
+            git commit -m "Auto-sync balorg metadata: update last_checked"
+            git push
+          else
+            echo "No changes to commit"
+          fi
