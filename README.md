@@ -19,5 +19,9 @@ EchoShell is a sovereign tactical shell designed to simulate attack-defense cycl
 ## 📁 Repo Layout
 See [docs/architecture.md](docs/architecture.md) and [docs/mythic_lore.md](docs/mythic_lore.md)
 
+## 🗺️ Balorg Repository Metadata
+Track all Balorg-related repositories with AI-readable metadata mapping.
+See [BALORG_METADATA.md](BALORG_METADATA.md) and [balorg_repositories_metadata.json](balorg_repositories_metadata.json)
+
 ## 🛡️ License
 MIT + Sovereign Attribution. See [LICENSE](LICENSE)

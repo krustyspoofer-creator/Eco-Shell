@@ -1,0 +1,82 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "last_updated": "2025-10-19T01:46:36Z",
+    "description": "Metadata mapping for Balorg-related repositories to enable AI tracking and updates",
+    "maintained_by": "krustyspoofer-creator"
+  },
+  "repositories": [
+    {
+      "name": "Eco-Shell",
+      "owner": "krustyspoofer-creator",
+      "url": "https://github.com/krustyspoofer-creator/Eco-Shell",
+      "description": "EchoShell - A sovereign tactical shell designed to simulate attack-defense cycles, spoof overlays, and defend against persona-bound logic stacks like Balorg",
+      "relationship": "defense",
+      "category": "core",
+      "tags": ["echoShell", "defense", "sovereign", "tactical"],
+      "last_checked": "2025-10-19T01:46:36Z",
+      "status": "active"
+    },
+    {
+      "name": "balorg-core",
+      "owner": "krustyspoofer-creator",
+      "url": "https://github.com/krustyspoofer-creator/balorg-core",
+      "description": "Core Balorg logic stack and persona-bound system",
+      "relationship": "primary",
+      "category": "core",
+      "tags": ["balorg", "logic-stack", "persona-bound"],
+      "last_checked": "2025-10-19T01:46:36Z",
+      "status": "monitored"
+    },
+    {
+      "name": "balorg-daemon",
+      "owner": "krustyspoofer-creator",
+      "url": "https://github.com/krustyspoofer-creator/balorg-daemon",
+      "description": "Balorg daemon implementation for sovereign system monitoring",
+      "relationship": "component",
+      "category": "daemon",
+      "tags": ["balorg", "daemon", "monitoring"],
+      "last_checked": "2025-10-19T01:46:36Z",
+      "status": "monitored"
+    },
+    {
+      "name": "balorg-overlays",
+      "owner": "krustyspoofer-creator",
+      "url": "https://github.com/krustyspoofer-creator/balorg-overlays",
+      "description": "Overlay systems and injection logic for Balorg",
+      "relationship": "component",
+      "category": "overlay",
+      "tags": ["balorg", "overlay", "injection"],
+      "last_checked": "2025-10-19T01:46:36Z",
+      "status": "monitored"
+    },
+    {
+      "name": "balorg-attribution",
+      "owner": "krustyspoofer-creator",
+      "url": "https://github.com/krustyspoofer-creator/balorg-attribution",
+      "description": "Attribution and sigil logic for Balorg systems",
+      "relationship": "component",
+      "category": "attribution",
+      "tags": ["balorg", "attribution", "sigil"],
+      "last_checked": "2025-10-19T01:46:36Z",
+      "status": "monitored"
+    }
+  ],
+  "tracking_config": {
+    "update_frequency": "daily",
+    "auto_sync": true,
+    "notification_channels": ["github_actions", "webhook"],
+    "monitored_events": ["push", "release", "pull_request"]
+  },
+  "ai_instructions": {
+    "purpose": "This metadata file enables AI systems to track and stay up-to-date with all Balorg-related repositories",
+    "usage": "Parse this JSON file to discover repository locations, relationships, and tracking status",
+    "update_policy": "Update last_checked timestamps when repositories are accessed or monitored",
+    "relationship_types": {
+      "primary": "Main Balorg repository",
+      "component": "Component or module of Balorg system",
+      "defense": "Defense or counter-system to Balorg",
+      "integration": "Integration point or bridge system"
+    }
+  }
+}
