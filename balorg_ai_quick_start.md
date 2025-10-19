@@ -146,6 +146,7 @@ const { app, BrowserWindow } = require('electron');
 const { spawn } = require('child_process');
 const path = require('path');
 
+const PYTHON_SHUTDOWN_TIMEOUT = 5000; // 5 seconds
 let pythonProcess = null;
 
 function createWindow() {
@@ -168,6 +169,18 @@ app.whenReady().then(() => {
   const pythonCmd = process.platform === 'win32' ? 'python' : 'python3';
   pythonProcess = spawn(pythonCmd, [pythonScript]);
   
+  // Handle Python process errors
+  pythonProcess.on('error', (err) => {
+    console.error('Failed to start Python backend:', err);
+    app.quit();
+  });
+  
+  pythonProcess.on('exit', (code) => {
+    if (code !== 0) {
+      console.error(`Python backend exited with code ${code}`);
+    }
+  });
+  
   createWindow();
 });
 
@@ -179,7 +192,7 @@ app.on('window-all-closed', () => {
       if (pythonProcess && !pythonProcess.killed) {
         pythonProcess.kill('SIGKILL');
       }
-    }, 5000);
+    }, PYTHON_SHUTDOWN_TIMEOUT);
   }
   app.quit();
 });
@@ -189,9 +202,21 @@ app.on('window-all-closed', () => {
 ```javascript
 const { contextBridge, ipcRenderer } = require('electron');
 
+// Validate input data
+function validateInferenceData(data) {
+  if (!data || typeof data !== 'object') {
+    throw new Error('Invalid inference data');
+  }
+  // Add more specific validation as needed
+  return true;
+}
+
 // Expose protected methods to renderer process
 contextBridge.exposeInMainWorld('api', {
-  inference: (data) => ipcRenderer.invoke('run-inference', data),
+  inference: (data) => {
+    validateInferenceData(data);
+    return ipcRenderer.invoke('run-inference', data);
+  },
   getStatus: () => ipcRenderer.invoke('get-status')
 });
 ```
