@@ -153,8 +153,9 @@ function createWindow() {
     width: 1200,
     height: 800,
     webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false
+      nodeIntegration: false,
+      contextIsolation: true,
+      preload: path.join(__dirname, 'preload.js')
     }
   });
 
@@ -162,16 +163,36 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
-  // Start Python backend
+  // Start Python backend - use python3 for better compatibility
   const pythonScript = path.join(__dirname, 'backend', 'server.py');
-  pythonProcess = spawn('python', [pythonScript]);
+  const pythonCmd = process.platform === 'win32' ? 'python' : 'python3';
+  pythonProcess = spawn(pythonCmd, [pythonScript]);
   
   createWindow();
 });
 
 app.on('window-all-closed', () => {
-  if (pythonProcess) pythonProcess.kill();
+  if (pythonProcess) {
+    // Graceful shutdown with timeout fallback
+    pythonProcess.kill('SIGTERM');
+    setTimeout(() => {
+      if (pythonProcess && !pythonProcess.killed) {
+        pythonProcess.kill('SIGKILL');
+      }
+    }, 5000);
+  }
   app.quit();
+});
+```
+
+### Preload Script (preload.js) - For Secure IPC
+```javascript
+const { contextBridge, ipcRenderer } = require('electron');
+
+// Expose protected methods to renderer process
+contextBridge.exposeInMainWorld('api', {
+  inference: (data) => ipcRenderer.invoke('run-inference', data),
+  getStatus: () => ipcRenderer.invoke('get-status')
 });
 ```
 

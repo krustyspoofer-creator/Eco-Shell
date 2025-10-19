@@ -365,6 +365,13 @@
 ┌─────────────┐       ┌──────────────┐
 │  Decision   │       │ Quick/Light  │
 │   Router    │───Yes─┤  Inference?  │
+│  Criteria:  │       │              │
+│  • Model    │       │  Factors:    │
+│    size     │       │  • Simple    │
+│  • Device   │       │    models    │
+│    GPU      │       │  • Fast      │
+│  • Network  │       │    response  │
+│    available│       │  • Privacy   │
 └──────┬──────┘       └──────────────┘
        │                     │
        │No (Heavy)           │Yes (Light)

@@ -482,7 +482,7 @@ app.whenReady().then(() => {
 | Google Play | $25 (one-time) | 15% (first $1M/year), then 30% |
 | Apple App Store | $99/year | 15% (first $1M/year), then 30% |
 | Microsoft Store | Free | 12% (apps), 15% (games) |
-| PlayStation Store | Confidential | ~30% (typical for console) |
+| PlayStation Store | Varies | ~30% (industry estimate) |
 
 ---
 
