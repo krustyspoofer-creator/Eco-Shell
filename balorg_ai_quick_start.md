@@ -204,10 +204,14 @@ const { contextBridge, ipcRenderer } = require('electron');
 
 // Validate input data
 function validateInferenceData(data) {
-  if (!data || typeof data !== 'object') {
-    throw new Error('Invalid inference data');
+  if (!data || typeof data !== 'object' || Array.isArray(data)) {
+    throw new Error('Invalid inference data: must be a non-null object');
   }
-  // Add more specific validation as needed
+  // Add more specific validation based on your API requirements
+  // Example: validate required fields
+  // if (!data.input || !Array.isArray(data.input)) {
+  //   throw new Error('Missing or invalid input field');
+  // }
   return true;
 }
 
