@@ -17,7 +17,12 @@ EchoShell is a sovereign tactical shell designed to simulate attack-defense cycl
 - `daemon_reflect`: mirrors and hijacks sovereign daemons
 
 ## 📁 Repo Layout
-See [docs/architecture.md](docs/architecture.md) and [docs/mythic_lore.md](docs/mythic_lore.md)
+See [architecture.md](architecture.md) and [mythic_lore.md](mythic_lore.md)
+
+## 🚀 Balorg AI Multi-Platform Deployment
+- [Complete Deployment Architecture](balorg_ai_deployment.md) - Comprehensive guide for turning Balorg AI into a consumer-facing app across all platforms
+- [Visual Architecture & Diagrams](balorg_ai_architecture_visual.md) - Technical diagrams and system architecture visualizations
+- [Quick Start Guide](balorg_ai_quick_start.md) - Commands and configurations for rapid development
 
 ## 🛡️ License
 MIT + Sovereign Attribution. See [LICENSE](LICENSE)
