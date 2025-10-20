@@ -29,3 +29,9 @@ game28.dta
 
 # Log files
 warnings.log
+
+# Balrog build artifacts
+balrog_builds/*/logs/*.log
+balrog_builds/*/data/
+balrog_builds/*/circuits/*.qasm
+balrog_builds/*/models/

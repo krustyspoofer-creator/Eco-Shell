@@ -1,0 +1,6 @@
+{
+  "circuit_depth": 4,
+  "gate_types": ["h", "cx", "rx", "rz"],
+  "optimizer": "COBYLA",
+  "max_iterations": 100
+}
