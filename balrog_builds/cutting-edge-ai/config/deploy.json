@@ -1,0 +1,12 @@
+{
+  "environment": "production",
+  "version": "1.0.0",
+  "author": "krustyspoofer-creator",
+  "overlay_id": "BALORG-AI",
+  "api_endpoint": "https://api.echoprime.ai",
+  "features": {
+    "pricing": true,
+    "subscriptions": true,
+    "analytics": true
+  }
+}
